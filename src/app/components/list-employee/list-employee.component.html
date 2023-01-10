@@ -1,0 +1,61 @@
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Agregar
+</button>
+
+<div class="cn mt-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Cumpleaños</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employe of employes">
+        <th scope="row">{{employe.id}}</th>
+        <td>{{employe.name}}</td>
+        <td>{{employe.last_name}}</td>
+        <td>{{employe.birthday | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formEmploye">
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input formControlName="name" class="form-control">
+            <div *ngIf="formEmploye.get('name')?.invalid" class="form-text">El número mínimo de caracteres es igual a 3</div>
+            <div *ngIf="formEmploye.get('name')?.invalid" class="form-text">El número máximo de caracteres es igual a 30</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Apellidos</label>
+            <input formControlName="last_name" class="form-control" >
+            <div *ngIf="formEmploye.get('last_name')?.invalid" class="form-text">El número mínimo de caracteres es igual a 3</div>
+            <div *ngIf="formEmploye.get('last_name')?.invalid" class="form-text">El número máximo de caracteres es igual a 30</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Apellidos</label>
+            <input formControlName="birthday" type="date" class="form-control" >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addEmployee()" data-bs-dismiss="modal" [disabled]="formEmploye.invalid">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
